@@ -1,3 +1,13 @@
+# DV
+
+- npx create-nx-workspace@latest nx-integrated-based-apps
+  - integrated based, for apps
+- npm install -D @nrwl/node
+- nx g @nrwl/node:application fastify-app
+- nx generate @nrwl/js:library is-even --importPath @dbd/is-even
+- Help with ES Build - https://github.com/evanw/esbuild/issues/1921
+-
+
 # NxIntegratedBasedApps
 
 <a href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>

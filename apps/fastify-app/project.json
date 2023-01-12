@@ -1,0 +1,117 @@
+{
+  "name": "fastify-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fastify-app/src",
+  "projectType": "application",
+  "targets": {
+    "build-webpack": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/fastify-app",
+        "main": "apps/fastify-app/src/main.ts",
+        "tsConfig": "apps/fastify-app/tsconfig.app.json",
+        "generatePackageJson": true,
+        "assets": ["apps/fastify-app/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/fastify-app/src/environments/environment.ts",
+              "with": "apps/fastify-app/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "fastify-app:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "fastify-app:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fastify-app/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/fastify-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": ["dbd/fastify-apps"],
+          "load": true,
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ]
+        }
+      }
+    },
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
+      "options": {
+        "main": "apps/fastify-app/src/main.ts",
+        "outputPath": "dist/apps/fastify-app",
+        "outputFileName": "main.mjs",
+        "tsConfig": "apps/fastify-app/tsconfig.app.json",
+        "bundle": true,
+        "splitting": false,
+        "assets": [
+          {
+            "glob": "apps/fastify-app/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ],
+        "format": ["esm"],
+        "platform": "node",
+        "target": "esnext",
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": { ".js": ".mjs" },
+          "banner": {
+            "js": "import { createRequire } from 'module';const require = createRequire(import.meta.url);"
+          }
+        }
+      },
+      "configurations": {
+        "development": {
+          "minify": false
+        },
+        "production": {
+          "minify": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
