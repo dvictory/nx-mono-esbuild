@@ -33,7 +33,8 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "fastify-app:build"
+        "buildTarget": "fastify-app:build",
+        "runtimeArgs": ["--enable-source-maps"]
       },
       "configurations": {
         "production": {

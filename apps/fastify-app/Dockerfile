@@ -16,4 +16,4 @@ COPY dist/apps/fastify-app .
 RUN chown -R node:node .
 USER node
 EXPOSE 3000
-CMD ["dumb-init", "node", "main.mjs"]
+CMD ["dumb-init","node","--source-map-support","main.mjs"]
