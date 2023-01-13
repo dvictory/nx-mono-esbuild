@@ -59,11 +59,11 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
+      "dependsOn": ["build-es"],
       "options": {
         "engine": "docker",
         "metadata": {
-          "images": ["dbd/fastify-apps"],
+          "images": ["dbd/fastify-app"],
           "load": true,
           "tags": [
             "type=schedule",
@@ -166,6 +166,15 @@
         "target": "esnext",
         "sourcemap": true,
         "outExtension": { ".js": ".mjs" },
+        "plugins": [
+          {
+            "package": "esbuild-copy-static-files",
+            "args": {
+              "src": "apps/fastify-app/src/assets",
+              "dest": "dist/apps/fastify-app/assets"
+            }
+          }
+        ],
         "banner": {
           "js": "import { createRequire } from 'module';const require = createRequire(import.meta.url);"
         }

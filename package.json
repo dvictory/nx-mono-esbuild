@@ -14,7 +14,9 @@
     "affected": "nx affected",
     "format": "nx format:write",
     "format:check": "nx format:check",
-    "test:next-app-e2e":"nx e2e next-app-e2e --packageRunner npx --browser chromium"
+    "test:next-app-e2e":"nx e2e next-app-e2e --packageRunner npx --browser chromium",
+    "fastify-app:build:prod": "nx build-es fastify-app --prod",
+    "fastify-app:es-serve": "nx serve-es fastify-app"
   },
   "private": true,
   "devDependencies": {
