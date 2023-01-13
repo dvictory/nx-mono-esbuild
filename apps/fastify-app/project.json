@@ -112,6 +112,73 @@
           "minify": true
         }
       }
+    },
+    "build-es" : {
+      "executor": "@wanews/nx-esbuild:build",
+      "outputs": ["{options.outdir}"],
+      "defaultConfiguration": "development",
+      "options": {
+        "entryPoints": ["apps/fastify-app/src/main.ts"],
+        "outdir": "dist/apps/fastify-app",
+        "tsconfig": "apps/fastify-app/tsconfig.app.json",
+        "bundle": true,
+        "splitting": false,
+        "format": "esm",
+        "platform": "node",
+        "target": "esnext",
+        "sourcemap": true,
+        "outExtension": { ".js": ".mjs" },
+        "plugins": [
+          {
+            "package": "esbuild-copy-static-files",
+            "args": {
+              "src": "apps/fastify-app/src/assets",
+              "dest": "dist/apps/fastify-app/assets"
+            }
+          }
+        ],
+        "banner": {
+          "js": "import { createRequire } from 'module';const require = createRequire(import.meta.url);"
+        }
+
+      },
+      "configurations": {
+        "development": {
+          "minify": false
+        },
+        "production": {
+          "minify": true
+        }
+      }
+    },
+    "serve-es": {
+      "executor": "@wanews/nx-esbuild:serve",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
+      "options": {
+        "entryPoints": ["apps/fastify-app/src/main.ts"],
+        "outfile": "dist/apps/fastify-app/main.mjs",
+        "tsconfig": "apps/fastify-app/tsconfig.app.json",
+        "bundle": true,
+        "splitting": false,
+        "format": "esm",
+        "platform": "node",
+        "target": "esnext",
+        "sourcemap": true,
+        "outExtension": { ".js": ".mjs" },
+        "banner": {
+          "js": "import { createRequire } from 'module';const require = createRequire(import.meta.url);"
+        }
+
+      },
+      "configurations": {
+        "development": {
+          "minify": false
+        },
+        "production": {
+          "minify": true
+        }
+      }
     }
   },
   "tags": []

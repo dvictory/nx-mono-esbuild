@@ -10,7 +10,11 @@
 - nx g @nx-tools/nx-container:init next-app
 - Had to copy and paste from https://github.com/gperdomor/nx-tools/blob/main/packages/nx-container/src/generators/init/files/next/Dockerfile__template__
   - Because the container generator is failing
-- 
+- npm install -D @wanews/nx-esbuild
+- Setup build-es and serve-es commands in the fastify app to showcase using ESBuild and Watch.
+- Deleted next-app-e2e in favor of 
+- npm install @mands/nx-playwright -D
+- nx e2e next-app-e2e
 
 # NxIntegratedBasedApps
 

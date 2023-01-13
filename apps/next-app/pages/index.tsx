@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import { isEven } from "@dbd/is-even";
 
 export function Index() {
-  let message = isEven(1) ? "Yes" : "No";
+  let message = isEven(4) ? "Yes" : "No";
   return (
     <div className={styles.page}>
       <div className="wrapper">

@@ -6,7 +6,7 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     try {
       const now = new Date().getTime();
       const even = isEven(now);
-      return `${now} is ${even ? '' : 'Not'} Even`;
+      return `${now} is ${even ? '' : 'Not'} Even!`;
     } catch (e) {
       console.log(e.stack);
       throw e;
