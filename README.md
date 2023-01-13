@@ -6,7 +6,11 @@
 - nx g @nrwl/node:application fastify-app
 - nx generate @nrwl/js:library is-even --importPath @dbd/is-even
 - Help with ES Build - https://github.com/evanw/esbuild/issues/1921
--
+- nx g @nrwl/next:app next-app
+- nx g @nx-tools/nx-container:init next-app
+- Had to copy and paste from https://github.com/gperdomor/nx-tools/blob/main/packages/nx-container/src/generators/init/files/next/Dockerfile__template__
+  - Because the container generator is failing
+- 
 
 # NxIntegratedBasedApps
 
