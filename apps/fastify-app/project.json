@@ -30,6 +30,12 @@
         }
       }
     },
+    "copy-assets": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mkdir -p dist/apps/fastify-app && cp -r apps/fastify-app/src/assets/* dist/apps/fastify-app/assets/*"
+      }
+    },
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
@@ -115,6 +121,7 @@
     },
     "build-es" : {
       "executor": "@wanews/nx-esbuild:build",
+      "dependsOn": ["copy-assets"],
       "outputs": ["{options.outdir}"],
       "defaultConfiguration": "development",
       "options": {
@@ -170,8 +177,10 @@
           {
             "package": "esbuild-copy-static-files",
             "args": {
-              "src": "apps/fastify-app/src/assets",
-              "dest": "dist/apps/fastify-app/assets"
+              "src": "apps/fastify-app/src/assets/",
+              "dest": "dist/apps/fastify-app/assets",
+              "recursive" : false,
+              "force": true
             }
           }
         ],

@@ -1,0 +1,6 @@
+{
+  "name": "sst-app",
+  "scripts": {
+    "sst": "sst"
+  }
+}

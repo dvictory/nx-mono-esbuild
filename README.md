@@ -15,6 +15,7 @@
 - Deleted next-app-e2e in favor of 
 - npm install @mands/nx-playwright -D
 - nx e2e next-app-e2e
+- nx generate @nrwl/js:library aws-messaging --importPath @dbd/aws-messaging
 
 # NxIntegratedBasedApps
 

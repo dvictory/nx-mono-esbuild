@@ -1,0 +1,8 @@
+{
+  "name": "next-app",
+  "scripts": {
+    "dev": "sst bind next dev",
+    "build": "true",
+    "start": "next start"
+  }
+}

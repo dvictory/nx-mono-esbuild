@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@dbd/aws-messaging": ["libs/aws-messaging/src/index.ts"],
       "@dbd/is-even": ["libs/is-even/src/index.ts"]
     }
   },

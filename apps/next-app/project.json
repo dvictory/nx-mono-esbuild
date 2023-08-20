@@ -5,16 +5,18 @@
   "projectType": "application",
   "targets": {
     "build": {
+      "dependsOn": ["clean"],
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "defaultConfiguration": "development",
       "options": {
         "root": "apps/next-app",
         "outputPath": "dist/apps/next-app"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/next-app"
+          "root": "apps/next-app",
+          "outputPath": "apps/next-app/dist"
         },
         "production": {}
       }
@@ -60,21 +62,89 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
+      "dependsOn": [""],
       "options": {
         "engine": "docker",
+        "file": "./apps/next-app/ci.Dockerfile",
         "metadata": {
           "images": ["dbd/next-app"],
           "load": true,
           "tags": [
             "type=schedule",
             "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=ref,event=pr",
             "type=sha,prefix=sha-"
           ]
         }
       }
+    },
+    "dev": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "dev"
+      }
+    },
+    "diff": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "diff"
+      }
+    },
+    "foo": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "echo 'foo'"
+        ]
+      }
+    },
+    "openNext": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "commands": [
+          "cd apps/next-app/dist && sed 's@/dist/.next@/.next@g' .next/standalone/apps/next-app/server.js > ./.next/standalone/server.js",
+          "cd apps/next-app/dist && cp -a .next/standalone/apps/next-app/dist/.next/. ./.next/standalone/apps/next-app/.next/",
+          "cd apps/next-app/dist && cp -a .next/standalone/apps/next-app/dist/.next/. ./.next/standalone/.next/",
+          "cd apps/next-app && mv dist/.next ./"
+        ],
+        "parallel": false
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "rm -rf apps/next-app/.sst",
+          "rm -rf apps/next-app/.next",
+          "rm -rf apps/next-app/dist",
+          "rm -rf apps/next-app/.open-next"
+        ],
+        "parallel": false
+      }
+    },
+    "buildSST": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "dependsOn": ["openNext"],
+      "options": {
+        "command": "build"
+      },
+      "outputs": ["apps/next-app/.sst"]
+    },
+    "deploy": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "dependsOn": ["openNext"],
+      "options": {
+        "command": "deploy"
+      }
+    },
+    "remove": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "remove"
+      }
+    },
+    "turbo": {
+      "command": "next dev --turbo"
     }
   },
   "tags": []

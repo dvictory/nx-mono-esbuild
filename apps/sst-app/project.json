@@ -1,0 +1,46 @@
+{
+  "name": "sst-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "dev": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "dev"
+      }
+    },
+    "diff": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "diff"
+      }
+    },
+    "build": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "build"
+      },
+      "outputs": ["apps/sst-app/.sst"]
+    },
+    "deploy": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "deploy"
+      }
+    },
+    "remove": {
+      "executor": "@berenddeboer/nx-sst:sst",
+      "options": {
+        "command": "remove"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sst-app/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

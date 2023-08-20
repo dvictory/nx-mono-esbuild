@@ -45,3 +45,10 @@ Thumbs.db
 **/test-results
 **/playwright-report
 **/playwright/.cache
+package-lock.json
+
+#localstack
+volume/
+.open-next
+.sst
+.vscode
