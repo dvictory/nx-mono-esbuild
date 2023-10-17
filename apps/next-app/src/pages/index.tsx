@@ -1,9 +1,11 @@
+import type { InferGetServerSidePropsType, GetServerSideProps, GetServerSidePropsContext } from 'next';
 import styles from './index.module.css';
 import { isEven } from '@dbd/is-even';
 import { useEffect, useState } from 'react';
-export function Index() {
+
+export function Index({ repo }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [posts, setPosts] = useState<{ name?: string }>({});
-  let message = isEven(4) ? 'Yes' : 'No';
+  const message = isEven(4) ? 'Yes' : 'No';
   useEffect(() => {
     fetch('/api/hello')
       .then((response) => response.json())
@@ -23,7 +25,7 @@ export function Index() {
             <h1>
               <span> Hello there, </span>
               Welcome next-app 👋
-              {message} - Posts- {posts.name}
+              {message} - Posts- {posts.name} - SSP - {repo.name} - {repo.host}
             </h1>
           </div>
 
@@ -297,3 +299,21 @@ export function Index() {
 }
 
 export default Index;
+
+type Repo = {
+  name: string;
+  host: string;
+};
+
+export const getServerSideProps: GetServerSideProps<{
+  repo: Repo;
+}> = async (context: GetServerSidePropsContext) => {
+  return {
+    props: {
+      repo: {
+        name: (Math.random() + 1).toString(36).substring(7),
+        host: context.req.headers.host,
+      },
+    },
+  };
+};
