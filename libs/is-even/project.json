@@ -28,6 +28,21 @@
         "jestConfig": "libs/is-even/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "dopplerTest": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["dopplerTest2"],
+      "options": {
+        "cwd": "libs/is-even",
+        "command": "node ./src/test.js"
+      }
+    },
+    "dopplerTest2": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/is-even",
+        "command": "node ./src/test.js"
+      }
     }
   },
   "tags": []

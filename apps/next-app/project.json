@@ -72,7 +72,8 @@
           "tags": [
             "type=schedule",
             "type=ref,event=branch",
-            "type=sha,prefix=sha-"
+            "type=sha,prefix=sha-",
+            "type=ref,event=tag"
           ]
         }
       }
@@ -97,14 +98,13 @@
         ]
       }
     },
-    "openNext": {
+    "cleanUpBuild": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "options": {
         "commands": [
           "cd apps/next-app/dist && sed 's@/dist/.next@/.next@g' .next/standalone/apps/next-app/server.js > ./.next/standalone/server.js",
           "cd apps/next-app/dist && cp -a .next/standalone/apps/next-app/dist/.next/. ./.next/standalone/apps/next-app/.next/",
-          "cd apps/next-app/dist && cp -a .next/standalone/apps/next-app/dist/.next/. ./.next/standalone/.next/",
           "cd apps/next-app && mv dist/.next ./"
         ],
         "parallel": false
@@ -124,7 +124,7 @@
     },
     "buildSST": {
       "executor": "@berenddeboer/nx-sst:sst",
-      "dependsOn": ["openNext"],
+      "dependsOn": ["cleanUpBuild"],
       "options": {
         "command": "build"
       },
@@ -132,7 +132,7 @@
     },
     "deploy": {
       "executor": "@berenddeboer/nx-sst:sst",
-      "dependsOn": ["openNext"],
+      "dependsOn": ["cleanUpBuild"],
       "options": {
         "command": "deploy"
       }

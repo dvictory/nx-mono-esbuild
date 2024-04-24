@@ -1,6 +1,6 @@
 {
   "name": "nx-integrated-based-apps",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "license": "MIT",
   "engines": {
     "node": ">=16",
@@ -22,11 +22,14 @@
     "test:next-app-e2e": "nx e2e next-app-e2e --packageRunner npx --browser chromium",
     "fastify-app:build:prod": "nx build-es fastify-app --prod",
     "fastify-app:es-serve": "nx serve-es fastify-app",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "semantic-release": "semantic-release",
+    "cz": "cz"
   },
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
+    "@dopplerhq/node-sdk": "^1.2.0",
     "@mands/nx-playwright": "^0.1.24",
     "@nrwl/cypress": "15.9.2",
     "@nrwl/esbuild": "15.9.2",
@@ -56,6 +59,7 @@
     "babel-jest": "28.1.1",
     "constructs": "10.2.69",
     "cypress": "^12.2.0",
+    "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.15.7",
     "esbuild-copy-static-files": "^0.1.0",
     "eslint": "~8.15.0",
@@ -73,6 +77,7 @@
     "playwright": "^1.26.0",
     "prettier": "^2.6.2",
     "react-test-renderer": "18.2.0",
+    "semantic-release": "^22.0.5",
     "sst": "^2.24.8",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
@@ -89,6 +94,8 @@
     "@emotion/styled": "^11.10.6",
     "@fastify/sensible": "^5.0.0",
     "@fontsource/inter": "^4.5.15",
+    "@honeybadger-io/nextjs": "^5.7.5",
+    "@honeybadger-io/react": "^6.1.6",
     "@nx/linter": "^16.7.2",
     "axios": "^1.0.0",
     "close-with-grace": "^1.1.0",
@@ -105,5 +112,14 @@
     "react-icons": "^4.8.0",
     "react-query": "^3.39.3",
     "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dvictory/nx-mono-esbuild.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
