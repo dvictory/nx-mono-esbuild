@@ -2,20 +2,20 @@
 
 - npx create-nx-workspace@latest nx-integrated-based-apps
   - integrated based, for apps
-- npm install -D @nrwl/node
-- nx g @nrwl/node:application fastify-app
-- nx generate @nrwl/js:library is-even --importPath @dbd/is-even
+- npm install -D @nx/node
+- nx g @nx/node:application fastify-app
+- nx generate @nx/js:library is-even --importPath @dbd/is-even
 - Help with ES Build - https://github.com/evanw/esbuild/issues/1921
-- nx g @nrwl/next:app next-app
+- nx g @nx/next:app next-app
 - nx g @nx-tools/nx-container:init next-app
 - Had to copy and paste from https://github.com/gperdomor/nx-tools/blob/main/packages/nx-container/src/generators/init/files/next/Dockerfile__template__
   - Because the container generator is failing
 - npm install -D @wanews/nx-esbuild
 - Setup build-es and serve-es commands in the fastify app to showcase using ESBuild and Watch.
-- Deleted next-app-e2e in favor of 
+- Deleted next-app-e2e in favor of
 - npm install @mands/nx-playwright -D
 - nx e2e next-app-e2e
-- nx generate @nrwl/js:library aws-messaging --importPath @dbd/aws-messaging
+- nx generate @nx/js:library aws-messaging --importPath @dbd/aws-messaging
 
 # NxIntegratedBasedApps
 

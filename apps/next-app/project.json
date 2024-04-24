@@ -5,12 +5,15 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "dependsOn": ["clean"],
-      "executor": "@nrwl/next:build",
-      "outputs": ["{options.outputPath}"],
+      "dependsOn": [
+        "clean"
+      ],
+      "executor": "@nx/next:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "development",
       "options": {
-        "root": "apps/next-app",
         "outputPath": "dist/apps/next-app"
       },
       "configurations": {
@@ -22,7 +25,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/next:server",
+      "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "next-app:build",
@@ -40,34 +43,44 @@
       }
     },
     "export": {
-      "executor": "@nrwl/next:export",
+      "executor": "@nx/next:export",
       "options": {
         "buildTarget": "next-app:build:production"
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/next-app/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/next-app/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/next-app/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": [""],
+      "dependsOn": [
+        ""
+      ],
       "options": {
         "engine": "docker",
         "file": "./apps/next-app/ci.Dockerfile",
         "metadata": {
-          "images": ["dbd/next-app"],
+          "images": [
+            "dbd/next-app"
+          ],
           "load": true,
           "tags": [
             "type=schedule",
@@ -100,7 +113,9 @@
     },
     "cleanUpBuild": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "commands": [
           "cd apps/next-app/dist && sed 's@/dist/.next@/.next@g' .next/standalone/apps/next-app/server.js > ./.next/standalone/server.js",
@@ -124,15 +139,21 @@
     },
     "buildSST": {
       "executor": "@berenddeboer/nx-sst:sst",
-      "dependsOn": ["cleanUpBuild"],
+      "dependsOn": [
+        "cleanUpBuild"
+      ],
       "options": {
         "command": "build"
       },
-      "outputs": ["apps/next-app/.sst"]
+      "outputs": [
+        "{projectRoot}/.sst"
+      ]
     },
     "deploy": {
       "executor": "@berenddeboer/nx-sst:sst",
-      "dependsOn": ["cleanUpBuild"],
+      "dependsOn": [
+        "cleanUpBuild"
+      ],
       "options": {
         "command": "deploy"
       }

@@ -52,3 +52,5 @@ volume/
 .open-next
 .sst
 .vscode
+
+.nx/cache

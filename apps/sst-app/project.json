@@ -20,7 +20,7 @@
       "options": {
         "command": "build"
       },
-      "outputs": ["apps/sst-app/.sst"]
+      "outputs": ["{projectRoot}/.sst"]
     },
     "deploy": {
       "executor": "@berenddeboer/nx-sst:sst",

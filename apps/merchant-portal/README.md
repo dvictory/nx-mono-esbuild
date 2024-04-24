@@ -1,5 +1,5 @@
 ```bash
-nx g @nrwl/next:app merchant-portal
+nx g @nx/next:app merchant-portal
 nx serve merchant-portal
 yarn add next-auth
 add api/auth/[...nextauth].ts endpoint - inspo from https://next-drupal.org/docs/authentication/password-grant
@@ -36,4 +36,5 @@ TODO: setup login via OAuth as well
 Make client secret dynamic to support multi tenant
 
 ## Run
+
 nx serve merchant-portal
