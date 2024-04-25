@@ -23,6 +23,9 @@
     },
     "e2e": {
       "inputs": ["default", "^production"]
+    },
+    "build-custom-server": {
+      "dependsOn": ["^build"]
     }
   },
   "namedInputs": {

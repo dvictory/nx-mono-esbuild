@@ -1,0 +1,16 @@
+{
+  "name": "util-nextjs-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/util-nextjs-server/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/util-nextjs-server/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

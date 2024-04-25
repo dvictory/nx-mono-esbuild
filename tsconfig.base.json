@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@dbd/aws-messaging": ["libs/aws-messaging/src/index.ts"],
-      "@dbd/is-even": ["libs/is-even/src/index.ts"]
+      "@dbd/is-even": ["libs/is-even/src/index.ts"],
+      "@nx-integrated-based-apps/util-nextjs-server": ["libs/util-nextjs-server/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

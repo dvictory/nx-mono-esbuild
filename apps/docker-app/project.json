@@ -15,7 +15,9 @@
         "development": {
           "outputPath": "apps/docker-app"
         },
-        "production": {}
+        "production": {
+          "generateLockfile": true
+        }
       },
       "dependsOn": ["build-custom-server"]
     },
@@ -68,18 +70,34 @@
       }
     },
     "build-custom-server": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/esbuild:esbuild",
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/docker-app",
         "main": "apps/docker-app/server/main.ts",
         "tsConfig": "apps/docker-app/tsconfig.server.json",
         "clean": false,
-        "assets": []
+        "assets": [],
+        "platform": "node",
+        "outputFileName": "server/main.js",
+        "format": ["cjs"],
+        "bundle": true,
+        "thirdParty": false,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
       },
       "configurations": {
-        "development": {},
-        "production": {}
+        "development": {
+          "sourcemap": true
+        },
+        "production": {
+          "sourcemap": false,
+          "assets": [".npmrc"]
+        }
       }
     },
     "serve-custom-server": {
@@ -94,6 +112,27 @@
         },
         "production": {
           "buildTarget": "docker-app:build-custom-server:production"
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "defaultConfiguration": "local",
+      "options": {
+        "engine": "docker",
+        "context": "dist/apps/docker-app",
+        "file": "apps/docker-app/Dockerfile"
+      },
+      "configurations": {
+        "local": {
+          "tags": ["docker-app:latest"],
+          "push": false,
+          "load": true
+        },
+        "production": {
+          "tags": ["my.image-registry.com/my-app:latest"],
+          "push": true
         }
       }
     }
