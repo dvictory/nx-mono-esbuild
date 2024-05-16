@@ -46,3 +46,5 @@ Helpful article - https://www.freecodecamp.org/news/how-to-deploy-a-next-js-app-
 updated to NX 15.9.2
 
 update require-server-files in standalone/.next, distDir
+
+Bump

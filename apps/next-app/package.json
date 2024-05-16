@@ -1,5 +1,6 @@
 {
   "name": "next-app",
+  "version": "v1.0.0",
   "scripts": {
     "dev": "sst bind next dev",
     "build": "true",

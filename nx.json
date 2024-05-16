@@ -84,5 +84,16 @@
     }
   },
   "nxCloudAccessToken": "MDI3NGJlOGQtM2YzMS00NGQxLTlhNzQtMmJmYjI1ZGFiYjhifHJlYWQtd3JpdGU=",
-  "useInferencePlugins": false
+  "useInferencePlugins": false,
+  "release": {
+    "projects": ["next-app"],
+    "version": {
+      "conventionalCommits": true
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "createRelease": "github"
+      }
+    }
+  }
 }
