@@ -1,3 +1,14 @@
+## 1.4.0 (2024-05-16)
+
+
+### 🚀 Features
+
+- **release:** new feature ([a41ba39](https://github.com/dvictory/nx-mono-esbuild/commit/a41ba39))
+
+### ❤️  Thank You
+
+- dvictory
+
 ## 1.3.0 (2024-05-16)
 
 
