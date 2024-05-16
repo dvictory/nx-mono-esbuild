@@ -1,3 +1,14 @@
+## 1.2.0 (2024-05-16)
+
+
+### 🚀 Features
+
+- **release:** remove secrets ([df29fe3](https://github.com/dvictory/nx-mono-esbuild/commit/df29fe3))
+
+### ❤️  Thank You
+
+- dvictory
+
 ## 1.1.0 (2024-05-16)
 
 
