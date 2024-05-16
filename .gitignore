@@ -54,3 +54,5 @@ volume/
 .vscode
 
 .nx/cache
+
+.env

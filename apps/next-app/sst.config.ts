@@ -2,7 +2,7 @@ import { SSTConfig } from 'sst';
 import { NextjsSite } from 'sst/constructs';
 import { Vpc, SubnetType } from 'aws-cdk-lib/aws-ec2';
 import DopplerSDK from '@dopplerhq/node-sdk';
-const doppler = new DopplerSDK({ accessToken: '' });
+const doppler = new DopplerSDK({ accessToken: process.env.DOPPLER });
 
 const vpcSubnets = {
   subnetType: SubnetType.PRIVATE_WITH_EGRESS,
