@@ -1,0 +1,37 @@
+# Install dependencies only when needed
+FROM node:18-alpine AS base
+#RUN apk add --no-cache dumb-init libc6-compat
+RUN apk add --no-cache dumb-init
+
+ENV PNPM_HOME=/usr/local/bin
+RUN corepack enable && corepack prepare pnpm@8.15.6 --activate
+RUN pnpm config set store-dir ~/.pnpm-store
+RUN pnpm fetch
+USER root
+
+WORKDIR /app
+ARG BUILD_VERSION=unknown
+ENV BUILD_VERSION=$BUILD_VERSION
+ARG NODE_ENV=production
+
+COPY --chown=node:node package.json pnpm-lock.yaml* .npmrc ./
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+#RUN mkdir -p /app/dist/apps/docker-app/.next/cache && chown nextjs:nodejs /app/dist/apps/docker-app/.next/cache
+
+COPY public ./apps/docker-app/public
+COPY .next/standalone/package.json ./package.json
+COPY .next/standalone ./
+COPY .next/static ./dist/apps/docker-app/.next/static
+
+RUN pnpm i --config.arch=x64 --config.platform=linux --config.libc=musl sharp@0.32.6
+
+USER nextjs
+EXPOSE 3000
+ENV PORT 3000
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_SHARP_PATH /app/node_modules/sharp
+
+CMD ["dumb-init","node","--enable-source-maps","apps/docker-app/server.js"]

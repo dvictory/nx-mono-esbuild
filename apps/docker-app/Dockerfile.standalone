@@ -1,0 +1,24 @@
+FROM node:18-alpine AS base
+RUN apk add --no-cache dumb-init
+WORKDIR /app
+ARG BUILD_VERSION=unknown
+ENV BUILD_VERSION=$BUILD_VERSION
+ARG NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+RUN mkdir -p /app/dist/apps/docker-app/.next/cache && chown nextjs:nodejs /app/dist/apps/docker-app/.next/cache
+
+COPY public ./apps/docker-app/public
+COPY .next/standalone/package.json ./package.json
+#RUN yarn global add pnpm@8.11.0 && pnpm i --ignore-scripts
+COPY .next/standalone ./
+COPY .next/static ./dist/apps/docker-app/.next/static
+
+USER nextjs
+EXPOSE 3000
+ENV PORT 3000
+ENV NEXT_TELEMETRY_DISABLED 1
+#ENV NEXT_SHARP_PATH /app/node_modules/sharp
+
+CMD ["dumb-init","node","--enable-source-maps","apps/docker-app/server.js"]

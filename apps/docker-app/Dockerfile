@@ -3,7 +3,7 @@ FROM docker.io/node:18-alpine as deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /usr/src/app
-COPY .npmrc package.json ./
+COPY package.json ./
 #COPY dist/apps/docker-app/package*.json ./
 RUN yarn install --production
 
@@ -21,14 +21,14 @@ WORKDIR /usr/src/app
 #COPY --from=deps /usr/src/app/package.json ./package.json
 #COPY dist/apps/docker-app/public ./public
 #COPY dist/apps/docker-app/.next ./.next
-#COPY public ./public
-#COPY .next ./.next
-#COPY server ./server
+COPY public ./public
+COPY .next ./.next
+COPY server ./server
 
 
 # DV added
 COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY ./ ./
+#COPY ./ ./
 
 
 RUN chown -R node:node .

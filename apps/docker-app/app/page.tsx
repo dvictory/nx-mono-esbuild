@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './page.module.css';
 import DataDisplayComponent from './client';
 
@@ -17,6 +18,12 @@ export default async function Index() {
               Welcome docker-app 👋
               <DataDisplayComponent />
             </h1>
+            <Image
+              src="https://www.cnet.com/a/img/resize/a0d8ccc6da83b3a93940f4bf40aaf6675fe8e969/hub/2022/03/28/63f0bd03-ed24-4c0a-a43d-95bfb9b1f02b/13vsse-1.jpg?auto=webp&width=1200"
+              alt="Nx Logo"
+              width={120}
+              height={120}
+            />
           </div>
 
           <div id="hero" className="rounded">

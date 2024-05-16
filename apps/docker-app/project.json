@@ -52,22 +52,12 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/docker-app/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "apps/docker-app/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/docker-app/**/*.{ts,tsx,js,jsx}"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "build-custom-server": {
       "executor": "@nx/esbuild:esbuild",
@@ -122,7 +112,27 @@
       "options": {
         "engine": "docker",
         "context": "dist/apps/docker-app",
-        "file": "apps/docker-app/Dockerfile"
+        "file": "apps/docker-app/Dockerfile.standalone"
+      },
+      "configurations": {
+        "local": {
+          "tags": ["docker-app:latest"],
+          "push": false,
+          "load": true
+        },
+        "production": {
+          "tags": ["my.image-registry.com/my-app:latest"],
+          "push": true
+        }
+      }
+    },
+    "containerFull": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": [""],
+      "defaultConfiguration": "local",
+      "options": {
+        "engine": "docker",
+        "file": "apps/docker-app/Dockerfile.full"
       },
       "configurations": {
         "local": {
