@@ -35,7 +35,7 @@ cd apps/next-app/dist && sed 's@/dist/.next@/.next@g' .next/standalone/apps/next
 I change the build command in SST to, the build-command is just a command that does nothing.  I did this because of the mono repo causing issue with the default 
 we actually build the application as dependent step before running SST
 ```js
-buildCommand: 'npx --yes open-next@2.0.5 build --build-command "nx run next-app:foo"',
+buildCommand: 'npx --yes open-next@2.0.5 build --build-command "nx run next-app:foo"'
 ```
 
 Created the hosted zone sst.dbd-dev.com in the developers@dbdventuresllc.com aws account.
@@ -47,4 +47,4 @@ updated to NX 15.9.2
 
 update require-server-files in standalone/.next, distDir
 
-Bump
+Bump 2
